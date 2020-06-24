@@ -10,9 +10,9 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>edu.cnm.deepdive</groupId>
-  <artifactId>budgetmanager-service</artifactId>
+  <artifactId>budget-manager-server</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>budgetmanager-service</name>
+  <name>budget-manager-server</name>
   <description>Service for managing your budget</description>
 
   <properties>

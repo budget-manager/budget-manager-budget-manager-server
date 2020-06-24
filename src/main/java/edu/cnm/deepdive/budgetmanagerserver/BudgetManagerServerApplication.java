@@ -1,13 +1,13 @@
-package edu.cnm.deepdive.budgetmanagerservice;
+package edu.cnm.deepdive.budgetmanagerserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BudgetmanagerServiceApplication {
+public class BudgetManagerServerApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(BudgetmanagerServiceApplication.class, args);
+    SpringApplication.run(BudgetManagerServerApplication.class, args);
   }
 
 }

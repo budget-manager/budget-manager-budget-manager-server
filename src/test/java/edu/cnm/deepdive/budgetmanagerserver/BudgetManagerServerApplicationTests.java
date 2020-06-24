@@ -1,10 +1,10 @@
-package edu.cnm.deepdive.budgetmanagerservice;
+package edu.cnm.deepdive.budgetmanagerserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BudgetmanagerServiceApplicationTests {
+class BudgetManagerServerApplicationTests {
 
   @Test
   void contextLoads() {
