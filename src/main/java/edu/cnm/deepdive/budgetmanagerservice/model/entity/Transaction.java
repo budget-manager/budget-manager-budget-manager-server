@@ -45,10 +45,8 @@ public class Transaction {
   @Column(nullable = false, updatable = false)
   private Date created;
 
-
   @Column(length = 1000)
   private String note;
-
 
   public Long getId() {
     return id;
@@ -91,12 +89,12 @@ public class Transaction {
     return created;
   }
 
-  @NonNull
   public String getNote() {
     return note;
   }
 
-  public void setNote(@NonNull String note) {
+  public void setNote(String note) {
     this.note = note;
   }
 }
+
