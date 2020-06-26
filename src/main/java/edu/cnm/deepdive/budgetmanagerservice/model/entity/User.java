@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import org.springframework.lang.NonNull;
 
+@SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 public class User {
 
@@ -28,7 +29,7 @@ public class User {
   }
 
   @NonNull
-  public String getoauth2Key() {
+  public String getOauth2Key() {
     return oauth2Key;
   }
 

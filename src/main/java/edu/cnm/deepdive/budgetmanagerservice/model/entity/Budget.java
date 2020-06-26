@@ -16,6 +16,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.NonNull;
 
+@SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 public class Budget {
 
@@ -26,8 +27,8 @@ public class Budget {
 
   @ManyToOne(fetch = FetchType.EAGER,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-  @JoinColumn(name = "user_id")
-  private Budget budget;
+  @JoinColumn(name = "user_id", nullable = false)
+  private User user;
 
   @NonNull
   @Column(length = 100, nullable = false)
@@ -37,12 +38,10 @@ public class Budget {
   @Column(length = 100, nullable = false)
   private Long budgetedAmount;
 
-  @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false, updatable = false)
   private Date startDate;
 
-  @UpdateTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false)
   private Date endDate;
@@ -50,5 +49,59 @@ public class Budget {
   @NonNull
   @Column(length = 100, nullable = false)
   private Double thresholdPercent;
-  
+
+  public Long getId() {
+    return id;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
+  @NonNull
+  public String getName() {
+    return name;
+  }
+
+  public void setName(@NonNull String name) {
+    this.name = name;
+  }
+
+  @NonNull
+  public Long getBudgetedAmount() {
+    return budgetedAmount;
+  }
+
+  public void setBudgetedAmount(@NonNull Long budgetedAmount) {
+    this.budgetedAmount = budgetedAmount;
+  }
+
+  public Date getStartDate() {
+    return startDate;
+  }
+
+  public void setStartDate(Date startDate) {
+    this.startDate = startDate;
+  }
+
+  public Date getEndDate() {
+    return endDate;
+  }
+
+  public void setEndDate(Date endDate) {
+    this.endDate = endDate;
+  }
+
+  @NonNull
+  public Double getThresholdPercent() {
+    return thresholdPercent;
+  }
+
+  public void setThresholdPercent(@NonNull Double thresholdPercent) {
+    this.thresholdPercent = thresholdPercent;
+  }
 }
