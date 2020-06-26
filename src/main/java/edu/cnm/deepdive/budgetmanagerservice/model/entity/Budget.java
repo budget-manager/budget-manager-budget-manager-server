@@ -34,9 +34,8 @@ public class Budget {
   @Column(length = 100, nullable = false)
   private String name;
 
-  @NonNull
   @Column(length = 100, nullable = false)
-  private Long budgetedAmount;
+  private long budgetedAmount;
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false, updatable = false)
@@ -46,9 +45,8 @@ public class Budget {
   @Column(nullable = false)
   private Date endDate;
 
-  @NonNull
   @Column(length = 100, nullable = false)
-  private Double thresholdPercent;
+  private double thresholdPercent;
 
   public Long getId() {
     return id;
@@ -71,12 +69,12 @@ public class Budget {
     this.name = name;
   }
 
-  @NonNull
-  public Long getBudgetedAmount() {
+
+  public long getBudgetedAmount() {
     return budgetedAmount;
   }
 
-  public void setBudgetedAmount(@NonNull Long budgetedAmount) {
+  public void setBudgetedAmount(long budgetedAmount) {
     this.budgetedAmount = budgetedAmount;
   }
 
@@ -96,12 +94,11 @@ public class Budget {
     this.endDate = endDate;
   }
 
-  @NonNull
-  public Double getThresholdPercent() {
+  public double getThresholdPercent() {
     return thresholdPercent;
   }
 
-  public void setThresholdPercent(@NonNull Double thresholdPercent) {
+  public void setThresholdPercent(double thresholdPercent) {
     this.thresholdPercent = thresholdPercent;
   }
 }

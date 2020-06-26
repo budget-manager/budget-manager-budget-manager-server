@@ -33,9 +33,8 @@ public class Transaction {
   @Column(nullable = false)
   private Date date;
 
-  @NonNull
   @Column(length = 100, nullable = false)
-  private Long amount;
+  private long amount;
 
   @NonNull
   @Column(length = 100, nullable = false)
@@ -45,6 +44,11 @@ public class Transaction {
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false, updatable = false)
   private Date created;
+
+
+  @Column(length = 1000)
+  private String note;
+
 
   public Long getId() {
     return id;
@@ -66,12 +70,11 @@ public class Transaction {
     this.date = date;
   }
 
-  @NonNull
-  public Long getAmount() {
+  public long getAmount() {
     return amount;
   }
 
-  public void setAmount(@NonNull Long amount) {
+  public void setAmount(long amount) {
     this.amount = amount;
   }
 
@@ -88,4 +91,12 @@ public class Transaction {
     return created;
   }
 
+  @NonNull
+  public String getNote() {
+    return note;
+  }
+
+  public void setNote(@NonNull String note) {
+    this.note = note;
+  }
 }
