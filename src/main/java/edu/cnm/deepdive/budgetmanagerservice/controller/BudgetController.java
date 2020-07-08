@@ -31,6 +31,7 @@ public class BudgetController {
   public Iterable<Budget> get() {return budgetRepository.getAllByOrderByNameAsc()}
 
   @GetMapping
+  consumes = Media
 
 
 
