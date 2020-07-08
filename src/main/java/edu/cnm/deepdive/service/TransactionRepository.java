@@ -17,5 +17,5 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
   Iterable<Transaction> getAllByOrderByCreated();
 
-
+  Iterable<Transaction> getAllBySourceOrderByTextAsc();
 }
