@@ -54,12 +54,7 @@ public class TransactionController {
     return transactionRepository.findById(id).orElseThrow(NoSuchElementException::new);
   }
 
-  @GetMapping(value = "/{id:\\d+}/budget", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Budget> getBudget(@PathVariable long id) {
-    return transactionRepository.findById(id)
-        .map((transaction) -> budgetRepository.getAllByTransactionOrderByTextAsc(transaction))
-        .get();
-  }
+
 
 }
 
