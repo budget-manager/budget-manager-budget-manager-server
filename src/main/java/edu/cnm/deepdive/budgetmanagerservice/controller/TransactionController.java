@@ -3,9 +3,9 @@ package edu.cnm.deepdive.budgetmanagerservice.controller;
 
 import edu.cnm.deepdive.budgetmanagerservice.model.entity.Budget;
 import edu.cnm.deepdive.budgetmanagerservice.model.entity.Transaction;
-import edu.cnm.deepdive.service.BudgetRepository;
-import edu.cnm.deepdive.service.TransactionRepository;
-import edu.cnm.deepdive.service.UserRepository;
+import edu.cnm.deepdive.budgetmanagerservice.service.BudgetRepository;
+import edu.cnm.deepdive.budgetmanagerservice.service.TransactionRepository;
+import edu.cnm.deepdive.budgetmanagerservice.service.UserRepository;
 import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,9 +28,10 @@ public class TransactionController {
   private final BudgetRepository budgetRepository;
 
   @Autowired
-  public TransactionController(UserRepository userRepository,
-      TransactionRepository transactionRepository,
-      BudgetRepository budgetRepository) {
+  public TransactionController
+      (UserRepository userRepository,
+          TransactionRepository transactionRepository,
+          BudgetRepository budgetRepository) {
     this.userRepository = userRepository;
     this.transactionRepository = transactionRepository;
     this.budgetRepository = budgetRepository;
@@ -54,7 +55,7 @@ public class TransactionController {
   }
 
   @GetMapping(value = "/{id:\\d+}/budget", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Budget> getQuotes(@PathVariable long id) {
+  public Iterable<Budget> getBudget(@PathVariable long id) {
     return transactionRepository.findById(id)
         .map((transaction) -> budgetRepository.getAllByTransactionOrderByTextAsc(transaction))
         .get();
@@ -64,4 +65,4 @@ public class TransactionController {
 
 
 
-}
+

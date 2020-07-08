@@ -1,10 +1,9 @@
 package edu.cnm.deepdive.budgetmanagerservice.controller;
 
 import edu.cnm.deepdive.budgetmanagerservice.model.entity.Budget;
-import edu.cnm.deepdive.budgetmanagerservice.model.entity.User;
-import edu.cnm.deepdive.service.BudgetRepository;
-import edu.cnm.deepdive.service.TransactionRepository;
-import edu.cnm.deepdive.service.UserRepository;
+import edu.cnm.deepdive.budgetmanagerservice.service.BudgetRepository;
+import edu.cnm.deepdive.budgetmanagerservice.service.TransactionRepository;
+import edu.cnm.deepdive.budgetmanagerservice.service.UserRepository;
 import java.awt.PageAttributes.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
