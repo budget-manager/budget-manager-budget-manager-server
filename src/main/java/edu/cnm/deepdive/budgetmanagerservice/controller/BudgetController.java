@@ -30,6 +30,8 @@ public class BudgetController {
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Budget> get() {return budgetRepository.getAllByOrderByNameAsc()}
 
+  @GetMapping
+
 
 
 }
