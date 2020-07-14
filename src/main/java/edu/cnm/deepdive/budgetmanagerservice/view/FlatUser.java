@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URI;
 import java.util.Date;
 
-@JsonPropertyOrder(value = {"id", "Username"})
+@JsonPropertyOrder(value = {"id", "Oauth2Key", "Username"})
 public interface FlatUser {
 
   Long getId();
 
-//  Long getOauth2Key();
+  Long getOauth2Key();
 
   Long getUsername();
 
