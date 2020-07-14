@@ -40,13 +40,13 @@ public class Transaction {
   @Column(length = 100, nullable = false)
   private String name;
 
+  @Column(length = 1000)
+  private String note;
+
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false, updatable = false)
   private Date created;
-
-  @Column(length = 1000)
-  private String note;
 
   public Long getId() {
     return id;
@@ -85,16 +85,16 @@ public class Transaction {
     this.name = name;
   }
 
-  public Date getCreated() {
-    return created;
-  }
-
   public String getNote() {
     return note;
   }
 
   public void setNote(String note) {
     this.note = note;
+  }
+
+  public Date getCreated() {
+    return created;
   }
 }
 

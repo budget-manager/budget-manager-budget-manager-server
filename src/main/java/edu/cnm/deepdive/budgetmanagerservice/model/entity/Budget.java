@@ -48,6 +48,9 @@ public class Budget {
   @Column(length = 100, nullable = false)
   private double thresholdPercent;
 
+  @Column(length = 100)
+  private boolean recurring;
+
   public Long getId() {
     return id;
   }
@@ -100,5 +103,13 @@ public class Budget {
 
   public void setThresholdPercent(double thresholdPercent) {
     this.thresholdPercent = thresholdPercent;
+
+
+  }
+
+  public boolean isRecurring() { return recurring; }
+
+  public void setRecurring(boolean recurring) {
+    this.recurring = recurring;
   }
 }
