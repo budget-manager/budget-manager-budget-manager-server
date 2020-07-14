@@ -4,15 +4,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URI;
 import java.util.Date;
 
-@JsonPropertyOrder(value = {"id", "UserName", "href"})
+@JsonPropertyOrder(value = {"id", "Username"})
 public interface FlatUser {
 
   Long getId();
 
 //  Long getOauth2Key();
 
-  String getUserName();
+  Long getUsername();
 
-  URI getHref();
+//  URI getHref();
 
 }

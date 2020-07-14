@@ -34,6 +34,8 @@ public class User {
   @JsonSerialize(contentAs = FlatBudget.class)
   private List<Budget> budgets = new LinkedList<>();
 
+
+
   @NonNull
   @Column(length = 100, nullable = false, unique = true)
   private String oauth2Key;
