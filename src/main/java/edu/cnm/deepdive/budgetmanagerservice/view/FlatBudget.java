@@ -19,7 +19,7 @@ public interface FlatBudget {
 
   Double getThresholdPercent();
 
-  Boolean getIsRecurring;
+  Boolean getIsRecurring();
 
   URI getHref();
 

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
 
-  private final UserService userService;
+//  private final UserService userService;
   private final UserRepository userRepository;
   private final TransactionRepository transactionRepository;
   private final BudgetRepository budgetRepository;
@@ -32,8 +32,8 @@ public class UserController {
     this.userRepository = userRepository;
   }
 
-  @GetMapping(value = "/{id:\\d+}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<User> get(@PathVariable long id) {
-    return ResponseEntity.of(userService.get(id));
-  }
+//  @GetMapping(value = "/{id:\\d+}", produces = MediaType.APPLICATION_JSON_VALUE)
+//  public ResponseEntity<User> get(@PathVariable long id) {
+//    return ResponseEntity.of(userService.get(id));
+//  }
 }
