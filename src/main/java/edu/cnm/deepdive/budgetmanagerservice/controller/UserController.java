@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,21 +20,23 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
 
-//  private final UserService userService;
-  private final UserRepository userRepository;
-  private final TransactionRepository transactionRepository;
-  private final BudgetRepository budgetRepository;
+  private final UserService userService;
 
   @Autowired
-  public UserController(UserRepository userRepository,
-      TransactionRepository transactionRepository, BudgetRepository budgetRepository) {
-    this.budgetRepository = budgetRepository;
-    this.transactionRepository = transactionRepository;
-    this.userRepository = userRepository;
+  public UserController(UserService userService) {
+    this.userService = userService;
   }
 
-//  @GetMapping(value = "/{id:\\d+}", produces = MediaType.APPLICATION_JSON_VALUE)
-//  public ResponseEntity<User> get(@PathVariable long id) {
-//    return ResponseEntity.of(userService.get(id));
-//  }
+  @GetMapping(value = "/{id:\\d+}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<User> get(@PathVariable long id) {
+    return ResponseEntity.of(userService.get(id));
+  }
+
+  @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<User> get(Authentication auth) {
+    User user = (auth != null) ? (User) auth.getPrincipal() : null;
+    return ResponseEntity.of(Optional.ofNullable(user));
+  }
+
+
 }

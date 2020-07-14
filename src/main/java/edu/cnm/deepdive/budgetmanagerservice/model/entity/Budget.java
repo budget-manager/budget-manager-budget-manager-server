@@ -1,6 +1,11 @@
 package edu.cnm.deepdive.budgetmanagerservice.model.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import edu.cnm.deepdive.budgetmanagerservice.view.FlatBudget;
+import edu.cnm.deepdive.budgetmanagerservice.view.FlatTransaction;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,12 +15,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.springframework.lang.NonNull;
 
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
+
 public class Budget {
 
   @Id
@@ -27,6 +35,16 @@ public class Budget {
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
+
+  @OneToMany(
+      fetch = FetchType.LAZY,
+      mappedBy = "budget",
+      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
+  )
+  @OrderBy("name ASC")
+  @JsonSerialize(contentAs = FlatTransaction.class)
+  private List<Transaction> transactions = new LinkedList<>();
+
 
   @NonNull
   @Column(length = 100, nullable = false)
