@@ -22,8 +22,22 @@ import javax.persistence.TemporalType;
 import org.springframework.lang.NonNull;
 
 @SuppressWarnings("JpaDataSourceORMInspection")
-@Entity
 
+// TODO Ask about JavaDocs, and what goes below.
+/**
+ * This is a table that keeps track of the users budgets and stores the information in Tables.
+ * The Tables may be fetched or edited by using the following commands.
+ *
+ * getUser() - gets the
+ *
+ *
+ * budget_id,
+ * user_id, budget, name, budgeted amount, start date, end date,
+ * threshold percent, recurring.
+ *
+ * the class
+ */
+@Entity
 public class Budget {
 
   @Id
