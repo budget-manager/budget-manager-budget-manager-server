@@ -6,7 +6,7 @@ import java.util.Date;
 
 
 /**
- *
+ *An interface that shows the top level entities and not the related entities.
  */
 @JsonPropertyOrder(value = {"id", "budget", "date", "amount", "note", "created"})
 public interface FlatTransaction {

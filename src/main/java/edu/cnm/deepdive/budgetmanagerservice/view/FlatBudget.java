@@ -5,9 +5,9 @@ import java.net.URI;
 import java.util.Date;
 
 /**
- *
+ *An interface that shows the top level entities and not the related entities.
  */
-@JsonPropertyOrder(value = {"id", "created", "updated", "TresholdPercent", "href"})
+@JsonPropertyOrder(value = {"id", "created", "updated", "TresholdPercent"})
 public interface FlatBudget {
 
   Long getId();
@@ -24,6 +24,5 @@ public interface FlatBudget {
 
   Boolean getIsRecurring();
 
-  URI getHref();
 
 }
