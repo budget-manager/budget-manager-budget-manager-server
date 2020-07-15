@@ -1,7 +1,6 @@
 package edu.cnm.deepdive.budgetmanagerservice.model.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import edu.cnm.deepdive.budgetmanagerservice.view.FlatBudget;
 import edu.cnm.deepdive.budgetmanagerservice.view.FlatTransaction;
 import java.util.Date;
 import java.util.LinkedList;
@@ -21,6 +20,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.springframework.lang.NonNull;
 
+
+/**
+ * An entity class that holds budget_id as PK, user_id as FK, name, budget_amount, start_date, end_date,
+ * treshold_percent and recurring.
+ */
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 public class Budget {
@@ -66,64 +70,111 @@ public class Budget {
   @Column(length = 100)
   private boolean recurring;
 
+  /**
+   * getter for id in the Budget class
+   */
   public Long getId() {
     return id;
   }
 
+  /**
+   * getter for user in the Budget class
+   */
   public User getUser() {
     return user;
   }
 
+  /**
+   * setter for user in the Budget class
+   */
   public void setUser(User user) {
     this.user = user;
   }
 
+  /**
+   * getter for name in the Budget class
+   */
   @NonNull
   public String getName() {
     return name;
   }
 
+  /**
+   * setter for name in the Budget class
+   */
   public void setName(@NonNull String name) {
     this.name = name;
   }
 
-
+  /**
+   * getter for budgetedAmount in the Budget class
+   */
   public long getBudgetedAmount() {
     return budgetedAmount;
   }
 
+  /**
+   * setter for budgetedAmount in the Budget class
+   */
   public void setBudgetedAmount(long budgetedAmount) {
     this.budgetedAmount = budgetedAmount;
   }
 
+  /**
+   * getter for startDate in the Budget class
+   */
   public Date getStartDate() {
     return startDate;
   }
 
+  /**
+   * setter for startDate in the Budget class
+   */
   public void setStartDate(Date startDate) {
     this.startDate = startDate;
   }
 
+  /**
+   * getter for endDate in the Budget class
+   */
   public Date getEndDate() {
     return endDate;
   }
 
+  /**
+   * setter for endDate in the Budget class
+   */
   public void setEndDate(Date endDate) {
     this.endDate = endDate;
   }
 
+  /**
+   * getter for tresholdPercent in the Budget class
+   */
   public double getThresholdPercent() {
     return thresholdPercent;
   }
 
+  /**
+   * setter for tresholdPercent in the Budget class
+   */
   public void setThresholdPercent(double thresholdPercent) {
     this.thresholdPercent = thresholdPercent;
 
 
   }
 
-  public boolean isRecurring() { return recurring; }
+  /**
+   * getter for isRecurring in the Budget class
+   */
+  public boolean isRecurring() {
+    return recurring;
+  }
 
+
+  /**
+   * setter for isRecurring in the Budget class
+   */
   public void setRecurring(boolean recurring) {
     this.recurring = recurring;
   }

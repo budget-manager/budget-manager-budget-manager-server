@@ -1,7 +1,6 @@
 package edu.cnm.deepdive.budgetmanagerservice.controller;
 
 
-import edu.cnm.deepdive.budgetmanagerservice.model.entity.Budget;
 import edu.cnm.deepdive.budgetmanagerservice.model.entity.Transaction;
 import edu.cnm.deepdive.budgetmanagerservice.service.BudgetRepository;
 import edu.cnm.deepdive.budgetmanagerservice.service.TransactionRepository;
@@ -18,6 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * The TransactionController class controls the data flow for the Transaction class into model
+ * object and updates the view whenever data changes.
+ */
 @RestController
 @RequestMapping("/transactions")
 public class TransactionController {
@@ -27,21 +30,33 @@ public class TransactionController {
   private final TransactionRepository transactionRepository;
   private final BudgetRepository budgetRepository;
 
+  /**
+   * @param userRepository
+   * @param transactionRepository
+   * @param budgetRepository
+   */
   @Autowired
   public TransactionController
-      (UserRepository userRepository,
-          TransactionRepository transactionRepository,
-          BudgetRepository budgetRepository) {
+  (UserRepository userRepository,
+      TransactionRepository transactionRepository,
+      BudgetRepository budgetRepository) {
     this.userRepository = userRepository;
     this.transactionRepository = transactionRepository;
     this.budgetRepository = budgetRepository;
   }
 
+  /**
+   * @return
+   */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Transaction> get() {
     return transactionRepository.getAllByOrderByNameAsc();
   }
 
+  /**
+   * @param transaction
+   * @return
+   */
   @PostMapping(
       consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
@@ -49,11 +64,14 @@ public class TransactionController {
     return transactionRepository.save(transaction);
   }
 
+  /**
+   * @param id
+   * @return
+   */
   @GetMapping(value = "/{id:\\d+}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Transaction get(@PathVariable long id) {
     return transactionRepository.findById(id).orElseThrow(NoSuchElementException::new);
   }
-
 
 
 }

@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URI;
 import java.util.Date;
 
+/**
+ *
+ */
 @JsonPropertyOrder(value = {"id", "created", "updated", "TresholdPercent", "href"})
 public interface FlatBudget {
 

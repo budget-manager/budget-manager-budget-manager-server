@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+/**
+ * The Budget Controller class controls the data flow for the Budget class into model object and
+ * updates the view whenever data changes.
+ */
 @RestController
 @RequestMapping("/budgets")
 public class BudgetController {
@@ -21,6 +26,12 @@ public class BudgetController {
   private final TransactionRepository transactionRepository;
   private final UserRepository userRepository;
 
+
+  /**
+   * @param budgetRepository
+   * @param transactionRepository
+   * @param userRepository
+   */
   @Autowired
   public BudgetController(BudgetRepository budgetRepository,
       TransactionRepository transactionRepository,
@@ -30,13 +41,19 @@ public class BudgetController {
     this.userRepository = userRepository;
   }
 
+  /**
+   * @return
+   */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Budget> get() {
     return budgetRepository.getAllByOrderByNameAsc();
   }
 
 
-
+  /**
+   * @param id
+   * @return
+   */
   @GetMapping(value = "/{id:\\d+}/transactions", produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Transaction> getBudget(@PathVariable long id) {
     return budgetRepository.findById(id)

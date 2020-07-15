@@ -37,3 +37,4 @@ alter table budget
     add constraint FKkuh8cj1roovp9nh6ut2igrxm2 foreign key (user_id) references user;
 alter table transaction
     add constraint FK7ul8m5q12we515aa7b7ao0p44 foreign key (budget_id) references budget;
+

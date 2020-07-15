@@ -40,3 +40,5 @@ alter table transaction
     add constraint FK7ul8m5q12we515aa7b7ao0p44 foreign key (budget_id) references budget;
 
 ```
+
+[`ddl.sql`](sql/ddl.sql)

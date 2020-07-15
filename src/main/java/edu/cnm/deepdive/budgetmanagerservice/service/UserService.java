@@ -5,16 +5,29 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *
+ */
 @Service
 public class UserService {
 
   private final UserRepository userRepository;
 
+  /**
+   *
+   * @param userRepository
+   */
   @Autowired
   public UserService(UserRepository userRepository) {
     this.userRepository = userRepository;
   }
 
+  /**
+   *
+   * @param oauthKey
+   * @param displayName
+   * @return
+   */
   public synchronized User readOrCreateOne(String oauthKey, String displayName) {
     return userRepository.findFirstByOauth2Key(oauthKey)
         .orElseGet(() -> {
@@ -25,6 +38,11 @@ public class UserService {
         });
   }
 
+  /**
+   *
+   * @param id
+   * @return
+   */
   public Optional<User> get(Long id) {
     return userRepository.findById(id);
   }

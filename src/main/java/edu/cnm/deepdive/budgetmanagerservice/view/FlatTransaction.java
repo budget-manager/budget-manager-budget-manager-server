@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URI;
 import java.util.Date;
 
+
+/**
+ *
+ */
 @JsonPropertyOrder(value = {"id", "budget", "date", "amount", "note", "created"})
 public interface FlatTransaction {
 
