@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"edu.cnm.deepdive.budgetmanagerservice"},{"l":"edu.cnm.deepdive.budgetmanagerservice.controller"},{"l":"edu.cnm.deepdive.budgetmanagerservice.model.entity"},{"l":"edu.cnm.deepdive.budgetmanagerservice.service"},{"l":"edu.cnm.deepdive.budgetmanagerservice.view"}]
