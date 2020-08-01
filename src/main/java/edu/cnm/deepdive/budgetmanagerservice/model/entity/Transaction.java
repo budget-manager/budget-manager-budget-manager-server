@@ -1,6 +1,10 @@
 package edu.cnm.deepdive.budgetmanagerservice.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import edu.cnm.deepdive.budgetmanagerservice.view.FlatTransaction;
+import java.net.URI;
 import java.util.Date;
+import javax.annotation.PostConstruct;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +17,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -21,12 +28,25 @@ import org.springframework.lang.NonNull;
  */
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
-public class Transaction {
+@Component
+@JsonIgnoreProperties(
+    value = {"id", "budget", "date", "amount", "note", "created"},
+    allowGetters = true,
+    ignoreUnknown = true
+)
+public class Transaction implements FlatTransaction {
+
+  private static EntityLinks entityLinks;
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "transaction_id", nullable = false, updatable = false)
   private Long id;
+
+  @CreationTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(nullable = false, updatable = false)
+  private Date created;
 
   @ManyToOne(fetch = FetchType.EAGER,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
@@ -47,10 +67,7 @@ public class Transaction {
   @Column(length = 1000)
   private String note;
 
-  @CreationTimestamp
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(nullable = false, updatable = false)
-  private Date created;
+
 
 
   /**
@@ -91,7 +108,7 @@ public class Transaction {
   /**
    * getter for amount in the Transaction class
    */
-  public long getAmount() {
+  public Long getAmount() {
     return amount;
   }
 
@@ -136,6 +153,22 @@ public class Transaction {
    */
   public Date getCreated() {
     return created;
+  }
+
+  @PostConstruct
+  private void initHateoas() {
+    entityLinks.toString();
+  }
+
+  @Autowired
+  private void setEntityLinks(
+      @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection") EntityLinks entityLinks) {
+    Transaction.entityLinks = entityLinks;
+  }
+
+  @Override
+  public URI getHref() {
+    return (id != null) ? entityLinks.linkForItemResource(Transaction.class, id).toUri() : null;
   }
 }
 

@@ -1,9 +1,11 @@
 package edu.cnm.deepdive.budgetmanagerservice.controller;
 
+import edu.cnm.deepdive.budgetmanagerservice.model.entity.Budget;
 import edu.cnm.deepdive.budgetmanagerservice.model.entity.User;
 import edu.cnm.deepdive.budgetmanagerservice.service.UserService;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/user")
+@ExposesResourceFor(User.class)
 public class UserController {
 
 

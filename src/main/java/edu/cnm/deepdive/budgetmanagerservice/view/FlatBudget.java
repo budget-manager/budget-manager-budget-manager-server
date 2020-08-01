@@ -7,14 +7,14 @@ import java.util.Date;
 /**
  *An interface that shows the top level entities and not the related entities.
  */
-@JsonPropertyOrder(value = {"id", "created", "updated", "TresholdPercent"})
+@JsonPropertyOrder(value = {"id", "created", "updated", "thresholdPercent"})
 public interface FlatBudget {
 
   Long getId();
 
   String getName();
 
-  Long getAmount();
+  Long getBudgetedAmount();
 
   Date getCreated();
 
@@ -23,6 +23,8 @@ public interface FlatBudget {
   Double getThresholdPercent();
 
   Boolean getIsRecurring();
+
+  URI getHref();
 
 
 }

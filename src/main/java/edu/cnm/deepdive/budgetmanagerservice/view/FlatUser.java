@@ -14,8 +14,8 @@ public interface FlatUser {
 
   Long getOauth2Key();
 
-  Long getUsername();
+  String getUsername();
 
-
+  URI getHref();
 
 }

@@ -1,10 +1,14 @@
 package edu.cnm.deepdive.budgetmanagerservice.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import edu.cnm.deepdive.budgetmanagerservice.view.FlatBudget;
 import edu.cnm.deepdive.budgetmanagerservice.view.FlatTransaction;
+import java.net.URI;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,7 +22,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -27,12 +36,30 @@ import org.springframework.lang.NonNull;
  */
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
-public class Budget {
+@Component
+@JsonIgnoreProperties(
+    value = {"id", "created", "updated", "thresholdPercent"},
+    allowGetters = true,
+    ignoreUnknown = true
+)
+public class Budget implements FlatBudget {
+
+  private static EntityLinks entityLinks;
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "budget_id", nullable = false, updatable = false)
   private Long id;
+
+  @CreationTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(nullable = false, updatable = false)
+  private Date created;
+
+  @UpdateTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(nullable = false)
+  private Date updated;
 
   @ManyToOne(fetch = FetchType.EAGER,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
@@ -54,7 +81,7 @@ public class Budget {
   private String name;
 
   @Column(length = 100, nullable = false)
-  private long budgetedAmount;
+  private Long budgetedAmount;
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false, updatable = false)
@@ -64,7 +91,8 @@ public class Budget {
   @Column(nullable = false)
   private Date endDate;
 
-  @Column(length = 100, nullable = false)
+  // TODO should be retrieved from a query.
+  @Column(length = 100)
   private double thresholdPercent;
 
   @Column(length = 100)
@@ -99,6 +127,17 @@ public class Budget {
     return name;
   }
 
+
+  @Override
+  public Date getCreated() {
+    return created;
+  }
+
+  @Override
+  public Date getUpdated() {
+    return updated;
+  }
+
   /**
    * setter for name in the Budget class
    */
@@ -109,14 +148,14 @@ public class Budget {
   /**
    * getter for budgetedAmount in the Budget class
    */
-  public long getBudgetedAmount() {
+  public Long getBudgetedAmount() {
     return budgetedAmount;
   }
 
   /**
    * setter for budgetedAmount in the Budget class
    */
-  public void setBudgetedAmount(long budgetedAmount) {
+  public void setBudgetedAmount(Long budgetedAmount) {
     this.budgetedAmount = budgetedAmount;
   }
 
@@ -151,8 +190,13 @@ public class Budget {
   /**
    * getter for tresholdPercent in the Budget class
    */
-  public double getThresholdPercent() {
+  public Double getThresholdPercent() {
     return thresholdPercent;
+  }
+
+  @Override
+  public Boolean getIsRecurring() {
+    return null;
   }
 
   /**
@@ -178,4 +222,23 @@ public class Budget {
   public void setRecurring(boolean recurring) {
     this.recurring = recurring;
   }
+
+  @PostConstruct
+  private void initHateoas() {
+    entityLinks.toString();
+  }
+
+  @Autowired
+  private void setEntityLinks(
+      @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection") EntityLinks entityLinks) {
+    Budget.entityLinks = entityLinks;
+  }
+
+  @Override
+  public URI getHref() {
+    return (id != null) ? entityLinks.linkForItemResource(Budget.class, id).toUri() : null;
+  }
+
+
+
 }

@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.budgetmanagerservice.view;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import edu.cnm.deepdive.budgetmanagerservice.model.entity.Budget;
 import java.net.URI;
 import java.util.Date;
 
@@ -13,16 +14,16 @@ public interface FlatTransaction {
 
   Long getId();
 
-  Date getBudget();
+  Budget getBudget();
 
-  Long getDate();
+  Date getDate();
 
-  String getAmount();
+  Long getAmount();
 
-  Date getNote();
+  String getNote();
 
   Date getCreated();
 
-
+  URI getHref();
 
 }
