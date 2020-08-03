@@ -12,7 +12,7 @@ public interface FlatUser {
 
   Long getId();
 
-  Long getOauth2Key();
+  String getOauth2Key();
 
   String getUsername();
 

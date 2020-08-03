@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.budgetmanagerservice.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import edu.cnm.deepdive.budgetmanagerservice.view.FlatBudget;
@@ -11,6 +12,8 @@ import javax.annotation.PostConstruct;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -52,14 +55,18 @@ public class User implements FlatUser {
   @JsonSerialize(contentAs = FlatBudget.class)
   private List<Budget> budgets = new LinkedList<>();
 
-
+  @JsonIgnore
   @NonNull
   @Column(length = 100, nullable = false, unique = true)
-  private Long oauth2Key;
+  private String oauth2Key;
 
   @NonNull
   @Column(length = 100, nullable = false, unique = true)
   private String username;
+
+  @Enumerated(value = EnumType.ORDINAL)
+  @Column(nullable = false)
+  private Role role = Role.USER;
 
 
   /**
@@ -73,14 +80,14 @@ public class User implements FlatUser {
    * getter for oauth2Key in the User class
    */
   @NonNull
-  public Long getOauth2Key() {
+  public String getOauth2Key() {
     return oauth2Key;
   }
 
   /**
    * setter for oauth2Key in the User class
    */
-  public void setOauth2Key(@NonNull Long oauth2Key) {
+  public void setOauth2Key(@NonNull String oauth2Key) {
     this.oauth2Key = oauth2Key;
   }
 
@@ -99,6 +106,14 @@ public class User implements FlatUser {
     this.username = username;
   }
 
+  public Role getRole() {
+    return role;
+  }
+
+  public void setRole(Role role) {
+    this.role = role;
+  }
+
   @PostConstruct
   private void initHateoas() {
     //noinspection ResultOfMethodCallIgnored
@@ -115,6 +130,10 @@ public class User implements FlatUser {
   public URI getHref() {
     return (id != null) ? entityLinks.linkForItemResource(User.class, id).toUri() : null;
 
+  }
+
+  public enum Role {
+    USER, ADMINISTRATOR
   }
 
 }
