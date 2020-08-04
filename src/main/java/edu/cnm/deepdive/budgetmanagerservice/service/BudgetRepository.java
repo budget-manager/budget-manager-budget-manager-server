@@ -18,7 +18,7 @@ public interface BudgetRepository extends JpaRepository<Budget, Long> {
 
   Iterable<Budget> getAllByOrderByEndDate();
 
-  Iterable<Budget> getAllByTransactionOrderByTextAsc(Transaction transaction);
+//  Iterable<Budget> getAllByTransactionOrderByTextAsc(Transaction transactions);
 
 
 }

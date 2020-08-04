@@ -20,6 +20,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.Table;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.lang.NonNull;
@@ -31,6 +32,7 @@ import org.springframework.stereotype.Component;
  */
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
+@Table(name = "user_info")
 @Component
 @JsonIgnoreProperties(
     value = {"id", "Oauth2Key", "Username"},
@@ -52,7 +54,8 @@ public class User implements FlatUser {
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
   )
   @OrderBy("name ASC")
-  @JsonSerialize(contentAs = FlatBudget.class)
+//  @JsonSerialize(contentAs = FlatBudget.class)
+  @JsonIgnore
   private List<Budget> budgets = new LinkedList<>();
 
   @JsonIgnore

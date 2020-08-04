@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * the view whenever data changes.
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 @ExposesResourceFor(User.class)
 public class UserController {
 
@@ -49,8 +49,7 @@ public class UserController {
    */
   @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<User> get(Authentication auth) {
-    User user = (auth != null) ? (User) auth.getPrincipal() : null;
-    return ResponseEntity.of(Optional.ofNullable(user));
+    return ResponseEntity.of(userService.get(auth));
   }
 
 
