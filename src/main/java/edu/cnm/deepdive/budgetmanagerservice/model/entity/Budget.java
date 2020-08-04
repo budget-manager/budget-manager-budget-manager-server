@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import edu.cnm.deepdive.budgetmanagerservice.view.FlatBudget;
 import edu.cnm.deepdive.budgetmanagerservice.view.FlatTransaction;
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,8 +32,8 @@ import org.springframework.stereotype.Component;
 
 
 /**
- * An entity class that holds budget_id as PK, user_id as FK, name, budget_amount, start_date, end_date,
- * treshold_percent and recurring.
+ * An entity class that holds budget_id as PK, user_id as FK, name, budget_amount, start_date,
+ * end_date, treshold_percent and recurring.
  */
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
@@ -62,7 +63,7 @@ public class Budget implements FlatBudget {
   private Date updated;
 
   @ManyToOne(fetch = FetchType.EAGER,
-      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
@@ -80,23 +81,21 @@ public class Budget implements FlatBudget {
   @Column(length = 100, nullable = false)
   private String name;
 
-  @Column(length = 100, nullable = false)
+  @Column(nullable = false)
   private Long budgetedAmount;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(nullable = false, updatable = false)
-  private Date startDate;
+  //  @Temporal(TemporalType.DATE)
+  @Column(nullable = false, updatable = false, columnDefinition = "DATE")
+  private LocalDate startDate;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(nullable = false)
-  private Date endDate;
+  //  @Temporal(TemporalType.DATE)
+  @Column(nullable = false, columnDefinition = "DATE")
+  private LocalDate endDate;
 
   // TODO should be retrieved from a query.
-  @Column(length = 100)
   private double thresholdPercent;
 
-  @Column(length = 100)
-  private boolean recurring;
+  private Boolean recurring;
 
   /**
    * getter for id in the Budget class
@@ -162,28 +161,28 @@ public class Budget implements FlatBudget {
   /**
    * getter for startDate in the Budget class
    */
-  public Date getStartDate() {
+  public LocalDate getStartDate() {
     return startDate;
   }
 
   /**
    * setter for startDate in the Budget class
    */
-  public void setStartDate(Date startDate) {
+  public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }
 
   /**
    * getter for endDate in the Budget class
    */
-  public Date getEndDate() {
+  public LocalDate getEndDate() {
     return endDate;
   }
 
   /**
    * setter for endDate in the Budget class
    */
-  public void setEndDate(Date endDate) {
+  public void setEndDate(LocalDate endDate) {
     this.endDate = endDate;
   }
 
@@ -194,10 +193,6 @@ public class Budget implements FlatBudget {
     return thresholdPercent;
   }
 
-  @Override
-  public Boolean getIsRecurring() {
-    return null;
-  }
 
   /**
    * setter for tresholdPercent in the Budget class
@@ -211,7 +206,7 @@ public class Budget implements FlatBudget {
   /**
    * getter for isRecurring in the Budget class
    */
-  public boolean isRecurring() {
+  public Boolean isRecurring() {
     return recurring;
   }
 
@@ -219,7 +214,7 @@ public class Budget implements FlatBudget {
   /**
    * setter for isRecurring in the Budget class
    */
-  public void setRecurring(boolean recurring) {
+  public void setRecurring(Boolean recurring) {
     this.recurring = recurring;
   }
 
@@ -238,7 +233,6 @@ public class Budget implements FlatBudget {
   public URI getHref() {
     return (id != null) ? entityLinks.linkForItemResource(Budget.class, id).toUri() : null;
   }
-
 
 
 }

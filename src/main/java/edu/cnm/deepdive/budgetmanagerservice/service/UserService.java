@@ -3,6 +3,7 @@ package edu.cnm.deepdive.budgetmanagerservice.service;
 import edu.cnm.deepdive.budgetmanagerservice.model.entity.User;
 import edu.cnm.deepdive.budgetmanagerservice.model.entity.User.Role;
 import java.security.AccessControlException;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -56,7 +57,8 @@ public class UserService {
 
   public void requireAccess(User current, User owner) {
     if (!current.getId().equals(owner.getId()) && current.getRole() != Role.ADMINISTRATOR) {
-      throw new AccessControlException("Insufficient access.");
+//      throw new AccessControlException("Insufficient access.");
+      throw new NoSuchElementException();
     }
   }
 }

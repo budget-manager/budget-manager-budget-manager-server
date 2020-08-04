@@ -39,9 +39,15 @@ public class BudgetManagerServerApplication extends ResourceServerConfigurerAdap
         .antMatchers(HttpMethod.POST, "/budgets").hasRole("USER")
         .antMatchers(HttpMethod.PUT, "/budgets/**").hasRole("USER")
         .antMatchers(HttpMethod.DELETE, "/budgets/**").hasRole("USER")
+        .antMatchers(HttpMethod.GET, "/budgets/**").hasRole("USER")
         .antMatchers(HttpMethod.POST, "/transactions").hasRole("USER")
         .antMatchers(HttpMethod.PUT, "/transactions/**").hasRole("USER")
         .antMatchers(HttpMethod.DELETE, "/transactions/**").hasRole("USER")
+        .antMatchers(HttpMethod.GET, "/transactions/**").hasRole("USER")
+        .antMatchers(HttpMethod.POST, "/users").hasRole("USER")
+        .antMatchers(HttpMethod.PUT, "/users/**").hasRole("USER")
+        .antMatchers(HttpMethod.DELETE, "/users/**").hasRole("USER")
+        .antMatchers(HttpMethod.GET, "/users/**").hasRole("USER")
         .anyRequest().permitAll();
 
 

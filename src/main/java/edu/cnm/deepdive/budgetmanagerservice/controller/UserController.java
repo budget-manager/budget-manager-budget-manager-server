@@ -3,6 +3,7 @@ package edu.cnm.deepdive.budgetmanagerservice.controller;
 import edu.cnm.deepdive.budgetmanagerservice.model.entity.Budget;
 import edu.cnm.deepdive.budgetmanagerservice.model.entity.User;
 import edu.cnm.deepdive.budgetmanagerservice.service.UserService;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
@@ -39,8 +40,16 @@ public class UserController {
    * @return
    */
   @GetMapping(value = "/{id:\\d+}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<User> get(@PathVariable long id) {
-    return ResponseEntity.of(userService.get(id));
+  public User get(@PathVariable long id, Authentication auth) {
+    return userService.get(auth)
+        .map((user) -> {
+          if (user.getId() != id) {
+            throw new NoSuchElementException();
+
+          }
+          return user;
+        })
+        .orElseThrow(NoSuchElementException::new);
   }
 
   /**
